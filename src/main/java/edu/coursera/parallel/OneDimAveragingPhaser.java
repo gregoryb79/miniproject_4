@@ -128,12 +128,11 @@ public final class OneDimAveragingPhaser {
                     int right = (left + chunkSize) - 1;
                     if (right > n) right = n;
                     
-                    if (left > 1) {
+                    if (left <= right) {
                         threadPrivateMyNew[left] = (threadPrivateMyVal[left - 1] + threadPrivateMyVal[left + 1]) / 2.0;
-                    }
-                    
-                    if (right < n) {
-                        threadPrivateMyNew[right] = (threadPrivateMyVal[right - 1] + threadPrivateMyVal[right + 1]) / 2.0;
+                        if (right != left) {
+                            threadPrivateMyNew[right] = (threadPrivateMyVal[right - 1] + threadPrivateMyVal[right + 1]) / 2.0;
+                        }
                     }
 
                     int currPhase = ph.arrive();
